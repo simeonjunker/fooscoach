@@ -25,7 +25,11 @@ html, body {
     border: 1px solid #ccc;
     background-color: black;
     color: white;
-    transition: background-color 0.5s;
+    transition: background-color 0.5s, border-color 0.5s;
+}
+
+.container.no-dividers .section {
+    border-color: transparent;
 }
 
 .overlay {

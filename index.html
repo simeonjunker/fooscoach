@@ -2,66 +2,136 @@
 <html>
 <body>
 
-<h1>FoosCoach</h1>
+<style>
+    .colorRow.disabled {
+        opacity: 0.4;
+    }
 
+    details {
+        margin-bottom: 0.5em;
+    }
 
-<h2>Positionen</h2>
+    summary.category-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0.3em 0;
+    }
+
+    details[open] summary.category-title {
+        margin-bottom: 0.3em;
+    }
+
+    .category-body {
+        padding-left: 0.5em;
+    }
+</style>
+
+<h1>Eckenlotto</h1>
+
 <form id="inputForm">
-    <input type="checkbox" id="pos0" name="left", checked>
-    <label for="pos0"> Links</label><br>
-    <input type="checkbox" id="pos1" name="halfleft", checked>
-    <label for="pos1"> Halblinks</label><br>
-    <input type="checkbox" id="pos2" name="middle", checked>
-    <label for="pos2"> Mitte</label><br>
-    <input type="checkbox" id="pos3" name="halfright", checked>
-    <label for="pos3"> Halbrechts</label><br>
-    <input type="checkbox" id="pos4" name="right", checked>
-    <label for="pos4"> Rechts</label><br>
+    <details>
+        <summary class="category-title">Positionen</summary>
+        <div class="category-body">
+            <input type="checkbox" id="pos0" name="left", checked>
+            <label for="pos0"> Links</label><br>
+            <input type="checkbox" id="pos1" name="halfleft", checked>
+            <label for="pos1"> Halblinks</label><br>
+            <input type="checkbox" id="pos2" name="middle", checked>
+            <label for="pos2"> Mitte</label><br>
+            <input type="checkbox" id="pos3" name="halfright", checked>
+            <label for="pos3"> Halbrechts</label><br>
+            <input type="checkbox" id="pos4" name="right", checked>
+            <label for="pos4"> Rechts</label><br>
+        </div>
+    </details>
 
-<h2>Zeiteinstellungen</h2>
+    <details>
+        <summary class="category-title">Zeiteinstellungen</summary>
+        <div class="category-body">
+            <label for="prepareTime">Auflage:</label><br>
+            <input type="range" id="prepareTime" name="prepareTime" min="0" max="10" value="5"><br>
+            <span id="prepareTimeValue">50</span> s
+            <br><br>
 
-    <label for="prepareTime">Auflage:</label><br>
-    <input type="range" id="prepareTime" name="prepareTime" min="0" max="10" value="5"><br>
-    <span id="prepareTimeValue">50</span> s
-    <br><br>
+            <label for="readyTime">Bereitmachen:</label><br>
+            <input type="range" id="readyTime" name="readyTime" min="0" max="10" value="2"><br>
+            <span id="readyTimeValue">50</span> s
+            <br><br>
 
-    <label for="readyTime">Bereitmachen:</label><br>
-    <input type="range" id="readyTime" name="readyTime" min="0" max="10" value="2"><br>
-    <span id="readyTimeValue">50</span> s
-    <br><br>
+            <label for="minWaitTime">Wartezeit (min):</label><br>
+            <input type="range" id="minWaitTime" name="minWaitTime" min="0" max="15" value="3"><br>
+            <span id="minWaitTimeValue">50</span> s
+            <br><br>
 
-    <label for="minWaitTime">Wartezeit (min):</label><br>
-    <input type="range" id="minWaitTime" name="minWaitTime" min="0" max="15" value="3"><br>
-    <span id="minWaitTimeValue">50</span> s
-    <br><br>
+            <label for="maxWaitTime">Wartezeit (max):</label><br>
+            <input type="range" id="maxWaitTime" name="maxWaitTime" min="0" max="15" value="15"><br>
+            <span id="maxWaitTimeValue">50</span> s
+            <br><br>
 
-    <label for="maxWaitTime">Wartezeit (max):</label><br>
-    <input type="range" id="maxWaitTime" name="maxWaitTime" min="0" max="15" value="15"><br>
-    <span id="maxWaitTimeValue">50</span> s
-    <br><br>
+            <label for="highlightTime">Anzeige Zielposition:</label><br>
+            <input type="range" id="highlightTime" name="highlightTime" min="0" max="5" value="1"><br>
+            <span id="highlightTimeValue">50</span> s
+            <br><br>
 
-    <label for="highlightTime">Anzeige Zielposition:</label><br>
-    <input type="range" id="highlightTime" name="highlightTime" min="0" max="5" value="1"><br>
-    <span id="highlightTimeValue">50</span> s
-    <br><br>
+            <label for="refreshTime">Wartezeit vor nächstem Durchgang:</label><br>
+            <input type="range" id="refreshTime" name="refreshTime" min="0" max="5" value="3"><br>
+            <span id="refreshTimeValue">50</span> s
+            <br><br>
+        </div>
+    </details>
 
-    <label for="refreshTime">Wartezeit vor nächstem Durchgang:</label><br>
-    <input type="range" id="refreshTime" name="refreshTime" min="0" max="5" value="3"><br>
-    <span id="refreshTimeValue">50</span> s
-    <br><br>
+    <details>
+        <summary class="category-title">Farb-Codierung</summary>
+        <div class="category-body">
+            <input type="checkbox" id="useCustomColors" name="useCustomColors">
+            <label for="useCustomColors"> Positionen durch Farben codieren</label><br><br>
 
-<h2>Sounds</h2>
+            <div id="colorPicker">
+                <div class="colorRow" id="colorRow0">
+                    <label for="color0">Links:</label>
+                    <input type="color" id="color0" name="color0" value="#e6194b">
+                </div>
 
-    <input type="checkbox" id="doClick" name="doClick">
-    <label for="doClick"> Ticken (Sekunden)</label><br>
-    <input type="checkbox" id="doBeep" name="doBeep", checked>
-    <label for="doBeep"> Beep (bei Schuss)</label><br>
-    <input type="checkbox" id="doAnnounce" name="doAnnounce">
-    <label for="doAnnounce"> Ansage der Position (bei Schuss)</label><br>
+                <div class="colorRow" id="colorRow1">
+                    <label for="color1">Halblinks:</label>
+                    <input type="color" id="color1" name="color1" value="#3cb44b">
+                </div>
 
-    <br><br>
+                <div class="colorRow" id="colorRow2">
+                    <label for="color2">Mitte:</label>
+                    <input type="color" id="color2" name="color2" value="#4363d8">
+                </div>
+
+                <div class="colorRow" id="colorRow3">
+                    <label for="color3">Halbrechts:</label>
+                    <input type="color" id="color3" name="color3" value="#f58231">
+                </div>
+
+                <div class="colorRow" id="colorRow4">
+                    <label for="color4">Rechts:</label>
+                    <input type="color" id="color4" name="color4" value="#911eb4">
+                </div>
+            </div>
+            <br>
+        </div>
+    </details>
+
+    <details>
+        <summary class="category-title">Sounds</summary>
+        <div class="category-body">
+            <input type="checkbox" id="doClick" name="doClick">
+            <label for="doClick"> Ticken (Sekunden)</label><br>
+            <input type="checkbox" id="doBeep" name="doBeep", checked>
+            <label for="doBeep"> Beep (bei Schuss)</label><br>
+            <input type="checkbox" id="doAnnounce" name="doAnnounce">
+            <label for="doAnnounce"> Ansage der Position (bei Schuss)</label><br>
+        </div>
+    </details>
+
+    <br>
     <button type="submit">Bereit!</button>
-  </form> 
+  </form>
 
 
 
@@ -117,6 +187,34 @@
 
     });
 
+    /*
+        COLOR ROWS FOLLOW POSITION SELECTION
+    */
+
+    function syncColorPickerVisibility() {
+        const useCustomColors = document.getElementById('useCustomColors').checked;
+        document.getElementById('colorPicker').style.display = useCustomColors ? 'block' : 'none';
+    }
+
+    function syncColorAvailability() {
+        for (let i = 0; i < 5; i++) {
+            const posChecked = document.getElementById(`pos${i}`).checked;
+            const colorInput = document.getElementById(`color${i}`);
+            const colorRow = document.getElementById(`colorRow${i}`);
+            colorInput.disabled = !posChecked;
+            colorRow.classList.toggle('disabled', !posChecked);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        syncColorPickerVisibility();
+        syncColorAvailability();
+        document.getElementById('useCustomColors').addEventListener('change', syncColorPickerVisibility);
+        for (let i = 0; i < 5; i++) {
+            document.getElementById(`pos${i}`).addEventListener('change', syncColorAvailability);
+        }
+    });
+
     document.getElementById('inputForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
     
@@ -135,14 +233,20 @@
         const doClickValue = document.getElementById('doClick').checked;
         const doBeepValue = document.getElementById('doBeep').checked;
         const doAnnounceValue = document.getElementById('doAnnounce').checked;
+        const useCustomColorsValue = document.getElementById('useCustomColors').checked;
+        const color0Value = document.getElementById('color0').value;
+        const color1Value = document.getElementById('color1').value;
+        const color2Value = document.getElementById('color2').value;
+        const color3Value = document.getElementById('color3').value;
+        const color4Value = document.getElementById('color4').value;
 
         console.log(
-            pos0Value,pos1Value,pos2Value,pos3Value,pos4Value,prepareTimeValue,readyTimeValue,minWaitTimeValue,maxWaitTimeValue,highlightTimeValue,refreshTimeValue,doClickValue,doBeepValue,doAnnounceValue
+            pos0Value,pos1Value,pos2Value,pos3Value,pos4Value,prepareTimeValue,readyTimeValue,minWaitTimeValue,maxWaitTimeValue,highlightTimeValue,refreshTimeValue,doClickValue,doBeepValue,doAnnounceValue,useCustomColorsValue,color0Value,color1Value,color2Value,color3Value,color4Value
         )
     
         //Construct the new URL with the parameters
         const baseUrl = './app.html';
-        const newUrl = `${baseUrl}?pos0=${encodeURIComponent(pos0Value)}&pos1=${encodeURIComponent(pos1Value)}&pos2=${encodeURIComponent(pos2Value)}&pos3=${encodeURIComponent(pos3Value)}&pos4=${encodeURIComponent(pos4Value)}&prepareTime=${encodeURIComponent(prepareTimeValue)}&readyTime=${encodeURIComponent(readyTimeValue)}&minWaitTime=${encodeURIComponent(minWaitTimeValue)}&maxWaitTime=${encodeURIComponent(maxWaitTimeValue)}&highlightTime=${encodeURIComponent(highlightTimeValue)}&refreshTime=${encodeURIComponent(refreshTimeValue)}&doClick=${encodeURIComponent(doClickValue)}&doBeep=${encodeURIComponent(doBeepValue)}&doAnnounce=${encodeURIComponent(doAnnounceValue)}`;
+        const newUrl = `${baseUrl}?pos0=${encodeURIComponent(pos0Value)}&pos1=${encodeURIComponent(pos1Value)}&pos2=${encodeURIComponent(pos2Value)}&pos3=${encodeURIComponent(pos3Value)}&pos4=${encodeURIComponent(pos4Value)}&prepareTime=${encodeURIComponent(prepareTimeValue)}&readyTime=${encodeURIComponent(readyTimeValue)}&minWaitTime=${encodeURIComponent(minWaitTimeValue)}&maxWaitTime=${encodeURIComponent(maxWaitTimeValue)}&highlightTime=${encodeURIComponent(highlightTimeValue)}&refreshTime=${encodeURIComponent(refreshTimeValue)}&doClick=${encodeURIComponent(doClickValue)}&doBeep=${encodeURIComponent(doBeepValue)}&doAnnounce=${encodeURIComponent(doAnnounceValue)}&useCustomColors=${encodeURIComponent(useCustomColorsValue)}&color0=${encodeURIComponent(color0Value)}&color1=${encodeURIComponent(color1Value)}&color2=${encodeURIComponent(color2Value)}&color3=${encodeURIComponent(color3Value)}&color4=${encodeURIComponent(color4Value)}`;
 
         // Log the new URL to the console
         console.log(newUrl);
@@ -153,4 +257,4 @@
 </script>
 
 </body>
-</html> 
+</html>
